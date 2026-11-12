@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -451,18 +450,30 @@ async function runCode() {
   try {
     const py = await loadRuntime();
 
-    py.setStdout({
-      batched: msg => {
-        output.textContent += msg + "\n";
-      }
-    });
+    // إعداد مساحة لتجميع المخرجات والأخطاء بشكل متوافق مع الإصدارات الحديثة
+    await py.runPythonAsync(`
+import sys
+import io
 
-    py.setStderr({
-      batched: msg => {
-        output.textContent += msg + "\n";
+class WebOutput(io.TextIOBase):
+    def __init__(self, callback):
+        self.callback = callback
+    def write(self, s):
+        if s:
+            self.callback(s)
+        return len(s)
+
+sys.stdout = WebOutput(lambda s: js_print_output(s, False))
+sys.stderr = WebOutput(lambda s: js_print_output(s, True))
+    `);
+
+    // ربط الدوال الخاصة بالطباعة من بيئة بايثون إلى جافاسكريبت
+    window.js_print_output = function(msg, isError) {
+      if (isError) {
         output.classList.add("error");
       }
-    });
+      output.textContent += msg;
+    };
 
     await py.runPythonAsync(code);
 
