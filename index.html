@@ -3,9 +3,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101114">
-<title>PySpace</title>
+<title>PySpace ⚡</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/material-darker.css">
@@ -20,228 +20,109 @@
   --green:#8be28b;
   --red:#ff8585;
 }
-* { box-sizing:border-box; }
+* {box-sizing:border-box}
 body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font:14px system-ui,sans-serif;
-  height:100vh;
-  overflow:hidden;
+  margin:0;background:var(--bg);color:var(--text);
+  font:14px system-ui,sans-serif;height:100vh;overflow:hidden;
 }
-button { font:inherit;cursor:pointer; }
-
+button {font:inherit;cursor:pointer}
 .topbar {
-  height:62px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:0 20px;
-  background:#121317;
+  height:62px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;
+  padding:0 20px;background:#121317;
 }
 .menu-btn {
-  width:40px;height:40px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:var(--panel);
-  color:white;
-  font-size:21px;
+  width:40px;height:40px;border:1px solid var(--line);
+  border-radius:10px;background:var(--panel);color:white;font-size:21px;
 }
-.brand { font-weight:800;font-size:22px; }
-.brand span { color:var(--green); }
-.spacer { flex:1; }
-.status { color:var(--muted);font-size:12px; }
-
+.brand {font-weight:800;font-size:21px}
+.brand span {color:var(--green)}
+.spacer {flex:1}
+.status {color:var(--muted);font-size:12px}
 .run-btn {
-  border:0;
-  border-radius:10px;
-  background:var(--green);
-  color:#102015;
-  padding:10px 20px;
-  font-weight:800;
-  min-width:95px;
+  border:0;border-radius:10px;background:var(--green);
+  color:#102015;padding:10px 20px;font-weight:800;min-width:95px;
 }
-.run-btn:disabled { opacity:.6; }
-
+.run-btn:disabled {opacity:.6}
 main {
-  height:calc(100vh - 62px);
-  display:flex;
-  flex-direction:column;
-  padding:18px 20px;
-  gap:12px;
+  height:calc(100vh - 62px);display:flex;flex-direction:column;
+  padding:18px 20px;gap:12px;
 }
 .workspace {
-  flex:1;
-  min-height:0;
-  border:1px solid var(--line);
-  border-radius:14px;
-  overflow:hidden;
-  background:var(--panel);
-  display:flex;
-  flex-direction:column;
+  flex:1;min-height:0;border:1px solid var(--line);
+  border-radius:14px;overflow:hidden;background:var(--panel);
+  display:flex;flex-direction:column;
 }
 .editor-head {
-  height:43px;
-  display:flex;
-  align-items:center;
-  padding:0 14px;
-  border-bottom:1px solid var(--line);
-  color:var(--muted);
-  gap:9px;
-  flex-shrink:0;
+  height:43px;display:flex;align-items:center;padding:0 14px;
+  border-bottom:1px solid var(--line);color:var(--muted);
+  gap:9px;flex-shrink:0;
 }
-.dot {
-  width:9px;height:9px;
-  border-radius:50%;
-  background:var(--green);
-}
-.editor-wrap { flex:1;min-height:0; }
+.dot {width:9px;height:9px;border-radius:50%;background:var(--green)}
+.editor-wrap {flex:1;min-height:0}
 .CodeMirror {
-  height:100%;
-  font:14px/1.7 monospace;
-  padding:12px 0;
+  height:100%;font:14px/1.7 monospace;padding:12px 0;
   background:var(--panel);
 }
 .CodeMirror-gutters {
-  background:var(--panel);
-  border-right:1px solid #292d35;
+  background:var(--panel);border-right:1px solid #292d35;
 }
-.CodeMirror-linenumber {
-  color:#626b7b;
-  padding:0 12px;
-}
-
+.CodeMirror-linenumber {color:#626b7b;padding:0 12px}
 .output {
-  height:185px;
-  min-height:120px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:#14161a;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
+  height:185px;min-height:120px;border:1px solid var(--line);
+  border-radius:14px;background:#14161a;display:flex;
+  flex-direction:column;overflow:hidden;
 }
 .output-head {
-  height:42px;
-  display:flex;
-  align-items:center;
-  padding:0 14px;
-  border-bottom:1px solid var(--line);
-  gap:8px;
-  flex-shrink:0;
+  height:42px;display:flex;align-items:center;padding:0 14px;
+  border-bottom:1px solid var(--line);gap:8px;flex-shrink:0;
 }
-.output-title { font-weight:700; }
-.output-label {
-  color:var(--muted);
-  font-size:12px;
-  margin-left:auto;
-}
+.output-title {font-weight:700}
+.output-label {color:var(--muted);font-size:12px;margin-left:auto}
 #output {
-  margin:0;
-  padding:12px 15px;
-  overflow:auto;
-  white-space:pre-wrap;
-  word-break:break-word;
-  color:#cbd5e1;
-  font:13px/1.6 monospace;
-  flex:1;
+  margin:0;padding:12px 15px;overflow:auto;white-space:pre-wrap;
+  word-break:break-word;color:#cbd5e1;font:13px/1.6 monospace;flex:1;
 }
-#output.error { color:var(--red); }
-
+#output.error {color:var(--red)}
 .backdrop {
-  position:fixed;
-  inset:0;
-  background:#0009;
-  opacity:0;
-  pointer-events:none;
-  z-index:4;
-  transition:.2s;
+  position:fixed;inset:0;background:#0009;opacity:0;
+  pointer-events:none;z-index:4;transition:.2s;
 }
 .drawer {
-  position:fixed;
-  z-index:5;
-  left:0;top:0;bottom:0;
-  width:min(320px,88vw);
-  background:var(--panel);
+  position:fixed;z-index:5;left:0;top:0;bottom:0;
+  width:min(320px,88vw);background:var(--panel);
   border-right:1px solid var(--line);
-  transform:translateX(-102%);
-  transition:.22s;
-  display:flex;
-  flex-direction:column;
-  padding:18px;
+  transform:translateX(-102%);transition:.22s;
+  display:flex;flex-direction:column;padding:18px;
 }
-body.drawer-open .drawer { transform:translateX(0); }
-body.drawer-open .backdrop {
-  opacity:1;
-  pointer-events:auto;
-}
-.drawer-top {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:22px;
-}
-.drawer-title { font-weight:800;font-size:17px; }
-.close-btn {
-  border:0;background:none;
-  color:var(--muted);
-  font-size:24px;
-}
+body.drawer-open .drawer {transform:translateX(0)}
+body.drawer-open .backdrop {opacity:1;pointer-events:auto}
+.drawer-top {display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.drawer-title {font-weight:800;font-size:17px}
+.close-btn {border:0;background:none;color:var(--muted);font-size:24px}
 .new-btn {
-  padding:12px;
-  border:1px solid #3a4b3d;
-  border-radius:9px;
-  background:#1d2a21;
-  color:var(--green);
-  font-weight:700;
-  text-align:left;
+  padding:12px;border:1px solid #3a4b3d;border-radius:9px;
+  background:#1d2a21;color:var(--green);font-weight:700;text-align:left;
 }
-.section-label {
-  font-size:11px;
-  color:var(--muted);
-  margin:24px 0 9px;
-}
-#session-list {
-  overflow:auto;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-}
+.section-label {font-size:11px;color:var(--muted);margin:24px 0 9px}
+#session-list {overflow:auto;display:flex;flex-direction:column;gap:5px}
 .session-item {
-  padding:11px;
-  border:1px solid transparent;
-  border-radius:8px;
-  background:transparent;
-  color:var(--text);
-  text-align:left;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  padding:11px;border:1px solid transparent;border-radius:8px;
+  background:transparent;color:var(--text);text-align:left;
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
-.session-item:hover,.session-item.active {
-  background:#252831;
-  border-color:var(--line);
-}
-.empty {
-  color:var(--muted);
-  padding:10px;
-  font-size:12px;
-}
+.session-item:hover,.session-item.active {background:#252831;border-color:var(--line)}
+.empty {color:var(--muted);padding:10px;font-size:12px}
 .drawer-foot {
-  margin-top:auto;
-  padding-top:14px;
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  font-size:11px;
+  margin-top:auto;padding-top:14px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:11px;
 }
-
 @media(max-width:650px) {
-  main { padding:12px;gap:10px; }
-  .topbar { padding:0 12px; }
-  .status { display:none; }
-  .output { height:165px; }
-  .CodeMirror { font-size:13px; }
+  main {padding:12px;gap:10px}
+  .topbar {padding:0 12px}
+  .status {display:none}
+  .output {height:165px}
+  .CodeMirror {font-size:13px}
 }
 </style>
 </head>
@@ -255,71 +136,57 @@ body.drawer-open .backdrop {
     <div class="drawer-title">Your workspace</div>
     <button class="close-btn" id="close-menu">×</button>
   </div>
-
-  <button class="new-btn" id="new-session">
-    ＋ New session
-  </button>
-
+  <button class="new-btn" id="new-session">＋ New session</button>
   <div class="section-label">Recent code</div>
   <div id="session-list"></div>
-
-  <div class="drawer-foot">
-    Saved automatically in this browser.
-  </div>
+  <div class="drawer-foot">Saved automatically in this browser.</div>
 </aside>
 
 <header class="topbar">
   <button class="menu-btn" id="menu-btn">☰</button>
-  <div class="brand">Py<span>Space</span></div>
+  <div class="brand">Py<span>Space ⚡</span></div>
   <div class="spacer"></div>
   <div class="status" id="status">Ready</div>
   <button class="run-btn" id="run-btn">▶ Run</button>
 </header>
 
 <main>
-
-<section class="workspace">
-  <div class="editor-head">
-    <span class="dot"></span>
-    <span id="file-title">main.py</span>
-    <span style="margin-left:auto">Python</span>
-  </div>
-
-  <div class="editor-wrap">
-    <textarea id="code"># Welcome to PySpace
+  <section class="workspace">
+    <div class="editor-head">
+      <span class="dot"></span>
+      <span id="file-title">main.py</span>
+      <span style="margin-left:auto">Python</span>
+    </div>
+    <div class="editor-wrap">
+      <textarea id="code"># Welcome to PySpace
 # Write Python code here, then press Run.
 
 name = "Python"
 print(f"Hello, {name}!")</textarea>
-  </div>
-</section>
+    </div>
+  </section>
 
-<section class="output">
-  <div class="output-head">
-    <span class="output-title">Output</span>
-    <span class="output-label" id="runtime-status">Python not loaded</span>
-  </div>
-  <pre id="output">Your output will appear here.</pre>
-</section>
-
+  <section class="output">
+    <div class="output-head">
+      <span class="output-title">Output</span>
+      <span class="output-label" id="runtime-status">Python not loaded</span>
+    </div>
+    <pre id="output">Your output will appear here.</pre>
+  </section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/python/python.js"></script>
 
-<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
-
 <script>
 const DB_NAME = "pyspace-db";
 const STORE = "sessions";
 
-let db;
-let currentId;
-let pyodide = null;
+let db, currentId, pyodide = null;
 let runtimePromise = null;
 let saveTimer = null;
 
-const starterCode = `# Welcome to PySpace
+const STARTER = `# Welcome to PySpace
 # Write Python code here, then press Run.
 
 name = "Python"
@@ -331,8 +198,7 @@ const runtimeStatus = document.getElementById("runtime-status");
 const runButton = document.getElementById("run-btn");
 
 const editor = CodeMirror.fromTextArea(
-  document.getElementById("code"),
-  {
+  document.getElementById("code"), {
     mode:"python",
     theme:"material-darker",
     lineNumbers:true,
@@ -347,119 +213,95 @@ const editor = CodeMirror.fromTextArea(
 
 function openDB() {
   return new Promise((resolve,reject) => {
-    const request = indexedDB.open(DB_NAME,1);
+    const req = indexedDB.open(DB_NAME,1);
 
-    request.onupgradeneeded = () => {
-      const database = request.result;
-
-      if (!database.objectStoreNames.contains(STORE)) {
-        database.createObjectStore(STORE,{keyPath:"id"});
+    req.onupgradeneeded = () => {
+      if (!req.result.objectStoreNames.contains(STORE)) {
+        req.result.createObjectStore(STORE,{keyPath:"id"});
       }
     };
 
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
   });
 }
 
-function getAllSessions() {
+function allSessions() {
   return new Promise((resolve,reject) => {
-    const request = db.transaction(STORE,"readonly")
+    const req = db.transaction(STORE,"readonly")
       .objectStore(STORE).getAll();
 
-    request.onsuccess = () => {
-      resolve(request.result.sort((a,b) => b.updated-a.updated));
-    };
+    req.onsuccess = () =>
+      resolve(req.result.sort((a,b)=>b.updated-a.updated));
 
-    request.onerror = () => reject(request.error);
+    req.onerror = () => reject(req.error);
   });
 }
 
 function getSession(id) {
   return new Promise((resolve,reject) => {
-    const request = db.transaction(STORE,"readonly")
+    const req = db.transaction(STORE,"readonly")
       .objectStore(STORE).get(id);
 
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
   });
+}
+
+function makeId() {
+  return "s-" + Date.now() + "-" +
+    Math.random().toString(36).slice(2,7);
+}
+
+function titleFor(code) {
+  const line = code.split("\n").map(x=>x.trim())
+    .find(x=>x && !x.startsWith("#"));
+  return (line || "Untitled session").slice(0,34);
 }
 
 function saveSession() {
   if (!db || !currentId) return;
 
-  const record = {
+  const tx = db.transaction(STORE,"readwrite");
+  tx.objectStore(STORE).put({
     id:currentId,
     code:editor.getValue(),
     updated:Date.now()
-  };
+  });
 
-  const transaction = db.transaction(STORE,"readwrite");
-
-  transaction.objectStore(STORE).put(record);
-
-  transaction.oncomplete = () => {
-    status.textContent = "Saved";
-    renderSessions();
-  };
-
-  transaction.onerror = () => {
-    status.textContent = "Save failed";
-  };
+  tx.oncomplete = () => renderSessions();
+  tx.onerror = () => status.textContent = "Save failed";
 }
-
-function makeId() {
-  return "session-" + Date.now() + "-" +
-    Math.random().toString(36).slice(2,8);
-}
-
-function titleFor(code) {
-  const line = code.split("\n")
-    .map(x => x.trim())
-    .find(x => x && !x.startsWith("#"));
-
-  return (line || "Untitled session").slice(0,34);
-}
-
-// SESSION LIST
 
 async function renderSessions() {
   const list = document.getElementById("session-list");
   list.innerHTML = "";
 
-  const sessions = await getAllSessions();
+  const sessions = await allSessions();
 
   if (!sessions.length) {
     list.innerHTML = '<div class="empty">No saved code yet.</div>';
     return;
   }
 
-  sessions.forEach(session => {
-    const button = document.createElement("button");
-
-    button.className =
-      "session-item" +
-      (session.id === currentId ? " active" : "");
-
-    button.textContent = titleFor(session.code);
-    button.title = new Date(session.updated).toLocaleString();
-
-    button.onclick = () => loadSession(session.id);
-
-    list.appendChild(button);
+  sessions.forEach(s => {
+    const btn = document.createElement("button");
+    btn.className = "session-item" +
+      (s.id === currentId ? " active" : "");
+    btn.textContent = titleFor(s.code);
+    btn.onclick = () => loadSession(s.id);
+    list.appendChild(btn);
   });
 }
 
 async function loadSession(id) {
-  const session = await getSession(id);
-
-  if (!session) return;
+  const s = await getSession(id);
+  if (!s) return;
 
   currentId = id;
-  editor.setValue(session.code);
-
+  editor.setValue(s.code);
   document.getElementById("file-title").textContent =
-    titleFor(session.code) + ".py";
+    titleFor(s.code) + ".py";
 
   output.textContent = "Session opened.";
   output.classList.remove("error");
@@ -471,12 +313,10 @@ async function loadSession(id) {
 
 async function newSession() {
   saveSession();
-
   currentId = makeId();
-  editor.setValue(starterCode);
+  editor.setValue(STARTER);
 
   document.getElementById("file-title").textContent = "main.py";
-
   output.textContent = "Your output will appear here.";
   output.classList.remove("error");
 
@@ -486,22 +326,22 @@ async function newSession() {
   renderSessions();
 }
 
-// AUTO SAVE
+// AUTOSAVE
 
-editor.on("change",() => {
+editor.on("change", () => {
   status.textContent = "Saving...";
-
   clearTimeout(saveTimer);
 
   saveTimer = setTimeout(() => {
     saveSession();
+    status.textContent = "Saved";
   },400);
 
   document.getElementById("file-title").textContent =
     titleFor(editor.getValue()) + ".py";
 });
 
-// DRAWER
+// MENU
 
 function openDrawer() {
   document.body.classList.add("drawer-open");
@@ -517,37 +357,85 @@ document.getElementById("close-menu").onclick = closeDrawer;
 document.getElementById("backdrop").onclick = closeDrawer;
 document.getElementById("new-session").onclick = newSession;
 
-// PYTHON RUNTIME
+// PYTHON LOADER WITH CDN FALLBACK
+
+const PYTHON_SOURCES = [
+  {
+    script:"https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js",
+    base:"https://cdn.jsdelivr.net/pyodide/v0.27.7/full/"
+  },
+  {
+    script:"https://unpkg.com/pyodide@0.27.7/pyodide.js",
+    base:"https://unpkg.com/pyodide@0.27.7/"
+  }
+];
+
+function loadScript(url) {
+  return new Promise((resolve,reject) => {
+    const script = document.createElement("script");
+    script.src = url;
+    script.onload = resolve;
+    script.onerror = () => reject(
+      new Error("Could not download: " + url)
+    );
+    document.head.appendChild(script);
+  });
+}
 
 async function loadRuntime() {
   if (pyodide) return pyodide;
+  if (runtimePromise) return runtimePromise;
 
-  if (!runtimePromise) {
-    runtimeStatus.textContent = "Loading Python...";
+  runtimePromise = (async () => {
+    const errors = [];
 
-    if (typeof loadPyodide !== "function") {
-      throw new Error(
-        "Python runtime library did not load. Check your internet connection and reload the page."
-      );
+    for (const source of PYTHON_SOURCES) {
+      try {
+        runtimeStatus.textContent = "Loading Python...";
+
+        if (typeof window.loadPyodide !== "function") {
+          await loadScript(source.script);
+        }
+
+        if (typeof window.loadPyodide !== "function") {
+          throw new Error("Python loader was not found.");
+        }
+
+        const instance = await window.loadPyodide({
+          indexURL:source.base
+        });
+
+        pyodide = instance;
+        runtimeStatus.textContent = "Python Ready";
+        return instance;
+
+      } catch (error) {
+        errors.push(
+          source.base + " : " +
+          (error.message || String(error))
+        );
+
+        pyodide = null;
+      }
     }
 
-    runtimePromise = loadPyodide({
-      indexURL:
-        "https://cdn.jsdelivr.net/pyodide/v0.27.7/full/"
-    });
-  }
+    throw new Error(
+      "Could not load Python from either CDN.\n\n" +
+      errors.join("\n\n") +
+      "\n\nCheck your connection or browser content blocking."
+    );
+  })();
 
   try {
-    pyodide = await runtimePromise;
-    runtimeStatus.textContent = "Python Ready";
-    return pyodide;
+    return await runtimePromise;
   } catch (error) {
     runtimePromise = null;
+    runtimeStatus.textContent = "Python failed to load";
     throw error;
   }
 }
 
-// RUN PYTHON
+// RUN CODE
 
 async function runCode() {
   const code = editor.getValue();
@@ -556,7 +444,6 @@ async function runCode() {
 
   runButton.disabled = true;
   runButton.textContent = "Running...";
-
   output.textContent = "";
   output.classList.remove("error");
   status.textContent = "Running";
@@ -565,14 +452,14 @@ async function runCode() {
     const py = await loadRuntime();
 
     py.setStdout({
-      batched(message) {
-        output.textContent += message + "\n";
+      batched: msg => {
+        output.textContent += msg + "\n";
       }
     });
 
     py.setStderr({
-      batched(message) {
-        output.textContent += message + "\n";
+      batched: msg => {
+        output.textContent += msg + "\n";
         output.classList.add("error");
       }
     });
@@ -580,21 +467,18 @@ async function runCode() {
     await py.runPythonAsync(code);
 
     if (!output.textContent.trim()) {
-      output.textContent =
-        "Code finished successfully (no output).";
+      output.textContent = "Code finished successfully (no output).";
     }
 
     status.textContent = "Finished";
 
   } catch (error) {
-    const message =
+    output.textContent =
       error && error.message
         ? error.message
         : String(error);
 
-    output.textContent = message;
     output.classList.add("error");
-
     status.textContent = "Error";
 
   } finally {
@@ -610,19 +494,18 @@ editor.setOption("extraKeys", {
   "Cmd-Enter":runCode
 });
 
-// START APPLICATION
+// START
 
 (async function start() {
   try {
     db = await openDB();
-
-    const sessions = await getAllSessions();
+    const sessions = await allSessions();
 
     if (sessions.length) {
       await loadSession(sessions[0].id);
     } else {
       currentId = makeId();
-      editor.setValue(starterCode);
+      editor.setValue(STARTER);
       saveSession();
     }
 
@@ -630,11 +513,7 @@ editor.setOption("extraKeys", {
 
   } catch (error) {
     status.textContent = "Storage unavailable";
-
-    output.textContent =
-      "Could not initialize local storage: " +
-      (error.message || String(error));
-
+    output.textContent = error.message || String(error);
     output.classList.add("error");
   }
 })();
