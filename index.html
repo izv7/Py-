@@ -356,16 +356,16 @@ document.getElementById("close-menu").onclick = closeDrawer;
 document.getElementById("backdrop").onclick = closeDrawer;
 document.getElementById("new-session").onclick = newSession;
 
-// PYTHON LOADER WITH CDN FALLBACK
+// PYTHON LOADER (Stable v0.21.3 for mobile browsers)
 
 const PYTHON_SOURCES = [
   {
-    script:"https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js",
-    base:"https://cdn.jsdelivr.net/pyodide/v0.27.7/full/"
+    script:"https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js",
+    base:"https://cdn.jsdelivr.net/pyodide/v0.21.3/full/"
   },
   {
-    script:"https://unpkg.com/pyodide@0.27.7/pyodide.js",
-    base:"https://unpkg.com/pyodide@0.27.7/"
+    script:"https://unpkg.com/pyodide@0.21.3/full/pyodide.js",
+    base:"https://unpkg.com/pyodide@0.21.3/full/"
   }
 ];
 
@@ -450,30 +450,19 @@ async function runCode() {
   try {
     const py = await loadRuntime();
 
-    // إعداد مساحة لتجميع المخرجات والأخطاء بشكل متوافق مع الإصدارات الحديثة
-    await py.runPythonAsync(`
-import sys
-import io
+    // استخدام الطريقة المدعومة بالكامل في هذا الإصدار المستقر للموبايل
+    py.setStdout({
+      batched: msg => {
+        output.textContent += msg + "\n";
+      }
+    });
 
-class WebOutput(io.TextIOBase):
-    def __init__(self, callback):
-        self.callback = callback
-    def write(self, s):
-        if s:
-            self.callback(s)
-        return len(s)
-
-sys.stdout = WebOutput(lambda s: js_print_output(s, False))
-sys.stderr = WebOutput(lambda s: js_print_output(s, True))
-    `);
-
-    // ربط الدوال الخاصة بالطباعة من بيئة بايثون إلى جافاسكريبت
-    window.js_print_output = function(msg, isError) {
-      if (isError) {
+    py.setStderr({
+      batched: msg => {
+        output.textContent += msg + "\n";
         output.classList.add("error");
       }
-      output.textContent += msg;
-    };
+    });
 
     await py.runPythonAsync(code);
 
