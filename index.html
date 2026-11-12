@@ -356,16 +356,16 @@ document.getElementById("close-menu").onclick = closeDrawer;
 document.getElementById("backdrop").onclick = closeDrawer;
 document.getElementById("new-session").onclick = newSession;
 
-// PYTHON LOADER (Stable v0.21.3 for mobile browsers)
+// PYTHON LOADER
 
 const PYTHON_SOURCES = [
   {
-    script:"https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js",
-    base:"https://cdn.jsdelivr.net/pyodide/v0.21.3/full/"
+    script:"https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js",
+    base:"https://cdn.jsdelivr.net/pyodide/v0.27.7/full/"
   },
   {
-    script:"https://unpkg.com/pyodide@0.21.3/full/pyodide.js",
-    base:"https://unpkg.com/pyodide@0.21.3/full/"
+    script:"https://unpkg.com/pyodide@0.27.7/pyodide.js",
+    base:"https://unpkg.com/pyodide@0.27.7/"
   }
 ];
 
@@ -434,7 +434,7 @@ async function loadRuntime() {
   }
 }
 
-// RUN CODE
+// RUN CODE (Clean and Standard Output Capture)
 
 async function runCode() {
   const code = editor.getValue();
@@ -450,24 +450,29 @@ async function runCode() {
   try {
     const py = await loadRuntime();
 
-    // استخدام الطريقة المدعومة بالكامل في هذا الإصدار المستقر للموبايل
-    py.setStdout({
-      batched: msg => {
-        output.textContent += msg + "\n";
-      }
-    });
+    let stdoutBuffer = "";
+    let stderrBuffer = "";
 
-    py.setStderr({
-      batched: msg => {
-        output.textContent += msg + "\n";
-        output.classList.add("error");
-      }
-    });
+    // التهيئة بالطريقة السليمة لـ Pyodide الحديث
+    py.runPython(`
+import sys
+import io
+sys.stdout = io.StringIO()
+sys.stderr = io.StringIO()
+    `);
 
-    await py.runPythonAsync(code);
+    try {
+      await py.runPythonAsync(code);
+      stdoutBuffer = py.runPython("sys.stdout.getvalue()");
+    } catch (err) {
+      stderrBuffer = err.message || String(err);
+    }
 
-    if (!output.textContent.trim()) {
-      output.textContent = "Code finished successfully (no output).";
+    if (stderrBuffer) {
+      output.textContent = stderrBuffer;
+      output.classList.add("error");
+    } else {
+      output.textContent = stdoutBuffer || "Code finished successfully (no output).";
     }
 
     status.textContent = "Finished";
